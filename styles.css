@@ -725,7 +725,7 @@ h2 {
 }
 
 /* Mobile responsiveness */
-@media screen and (max-width: 768px) {
+@media (min-width: 400px) and (max-width: 768px) {
     .container {
         max-width: 100%;
         padding: 15px;
@@ -803,5 +803,57 @@ h2 {
 
     .modal-content {
         width: 95%;
+    }
+}
+@media (max-width: 399px) {
+    /* Smaller Progress Circle and Text */
+    .course-card .progress-circle, .chapter-card .progress-circle {
+        width: 50px;
+        height: 50px;
+    }
+
+    .course-card .progress-circle-bg,
+    .course-card .progress-circle-fg,
+    .chapter-card .progress-circle-bg,
+    .chapter-card .progress-circle-fg {
+        cx: 25;
+        cy: 25;
+        r: 20;
+    }
+
+    .course-card .progress-circle text,
+    .chapter-card .progress-circle text {
+        x: 25;
+        y: 30;
+        font-size: 12px;
+    }
+
+    /* Topic File Attachments */
+    .topic-attachments .file-upload-container {
+        flex-direction: column; /* Stack vertically on very small screens */
+        gap: 8px;
+    }
+
+    .topic-attachments input[type="file"] {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .topic-attachments .upload-file-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        width: 100%; /* Full width on small screens */
+    }
+
+    .container {
+        padding: 8px; /* Further reduce padding */
+    }
+
+    .course-card, .chapter-card, .topic-card {
+        padding: 8px;
+    }
+
+    h2 {
+        font-size: 16px;
     }
 }
