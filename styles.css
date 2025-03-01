@@ -725,7 +725,7 @@ h2 {
 }
 
 /* Mobile responsiveness */
-@media (min-width: 400px) and (max-width: 768px) {
+/* @media (min-width: 440px) and (max-width: 768px) {
     .container {
         max-width: 100%;
         padding: 15px;
@@ -804,56 +804,69 @@ h2 {
     .modal-content {
         width: 95%;
     }
-}
-@media (max-width: 399px) {
-    /* Smaller Progress Circle and Text */
+} */
+@media (max-width: 439px) {
+    /* Smaller Progress Circle and Centered Text */
     .course-card .progress-circle, .chapter-card .progress-circle {
-        width: 50px;
-        height: 50px;
+        width: 70px; /* Reduced from 80px, a smaller decrease */
+        height: 70px;
     }
-
+    
+    .topics h5 {
+        font-size: 14px;
+    }
+    h4 {
+        font-size: 15px;
+    }
+    .topic-attachments input[type="file"], .topic-attachments .upload-file-btn {
+        font-size: 13px;
+    }
+    .topic-editable .status-label {
+        font-size: 12px;
+    }
+    .actions {
+        margin-top: 0;
+    }
     .course-card .progress-circle-bg,
     .course-card .progress-circle-fg,
     .chapter-card .progress-circle-bg,
     .chapter-card .progress-circle-fg {
-        cx: 25;
-        cy: 25;
-        r: 20;
+        cx: 35;
+        cy: 35;
+        r: 30; /* Reduced from 35 */
     }
 
     .course-card .progress-circle text,
     .chapter-card .progress-circle text {
-        x: 25;
-        y: 30;
-        font-size: 12px;
-    }
-
-    /* Topic File Attachments */
-    .topic-attachments .file-upload-container {
-        flex-direction: column; /* Stack vertically on very small screens */
-        gap: 8px;
-    }
-
-    .topic-attachments input[type="file"] {
-        padding: 6px;
-        font-size: 12px;
-    }
-
-    .topic-attachments .upload-file-btn {
-        padding: 6px 12px;
-        font-size: 12px;
-        width: 100%; /* Full width on small screens */
+        x: 35;
+        y: 35; /* Centered vertically in the 70px circle */
+        font-size: 13px; /* Slightly smaller for proportion */
     }
 
     .container {
-        padding: 8px; /* Further reduce padding */
+        padding: 10px;
     }
 
     .course-card, .chapter-card, .topic-card {
-        padding: 8px;
+        padding: 10px;
     }
 
     h2 {
-        font-size: 16px;
+        font-size: 18px;
+    }
+    .toggle-switch {
+        width: 50px; /* Reduced from 60px */
+        height: 28px; /* Reduced from 34px */
+    }
+
+    .toggle-slider:before {
+        height: 20px; /* Reduced from 26px */
+        width: 20px; /* Reduced from 26px */
+        left: 4px;
+        bottom: 4px;
+    }
+
+    .toggle-switch input:checked + .toggle-slider:before {
+        transform: translateX(22px); /* Adjusted for new width */
     }
 }
