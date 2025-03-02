@@ -430,6 +430,7 @@ h2 {
     font-size: 14px;
     cursor: pointer;
     transition: background 0.3s ease;
+    white-space: nowrap;
 }
 
 .topic-add-container button:hover {
@@ -597,16 +598,16 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px; /* Space between link and buttons */
+    gap: 10px;
 }
 
 .topic-attachments li a {
     color: #4A90E2;
     text-decoration: none;
-    flex-grow: 1; /* Allow link to take available space */
-    overflow: hidden; /* Handle long filenames */
-    text-overflow: ellipsis; /* Truncate long filenames */
-    white-space: nowrap; /* Prevent wrapping */
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .topic-attachments li a:hover {
@@ -616,7 +617,7 @@ h2 {
 .attachment-actions {
     display: flex;
     gap: 5px;
-    flex-shrink: 0; /* Prevent buttons from shrinking too much */
+    flex-shrink: 0;
 }
 
 .view-file-btn, .remove-file-btn {
@@ -627,7 +628,7 @@ h2 {
     color: white;
     cursor: pointer;
     transition: background 0.3s ease;
-    min-width: 60px; /* Default minimum width */
+    min-width: 60px;
     text-align: center;
 }
 
@@ -791,6 +792,25 @@ h2 {
         flex-grow: 1;
     }
 
+    /* Topic Edit Input with Done and Cancel Buttons in Same Row */
+    .topic-editable input {
+        flex-grow: 1;
+        width: auto; /* Override default 60% */
+        padding: 6px 8px; /* Match topic-add-container */
+        font-size: 12px; /* Match topic-add-container */
+    }
+
+    .topic-editable .edit-actions {
+        display: flex;
+        gap: 5px;
+        flex-shrink: 0;
+    }
+
+    .topic-editable i {
+        font-size: 14px; /* Slightly smaller than default 16px */
+        padding: 2px; /* Add some clickable area */
+    }
+
     /* File Input and Upload Button Side-by-Side with Reduced Size */
     .topic-attachments .file-upload-container {
         flex-direction: row;
@@ -819,20 +839,40 @@ h2 {
 
     /* Uploaded File List Item Adjustments */
     .topic-attachments li {
-        flex-wrap: nowrap; /* Prevent wrapping */
+        flex-wrap: nowrap;
         gap: 8px;
     }
 
     .attachment-actions {
-        flex-direction: row; /* Side-by-side */
+        flex-direction: row;
         gap: 5px;
-        justify-content: flex-end; /* Align to right */
+        justify-content: flex-end;
     }
 
     .view-file-btn, .remove-file-btn {
-        padding: 4px 8px; /* Reduced from 6px 12px */
-        font-size: 12px; /* Reduced from 14px */
-        min-width: 50px; /* Adjustable smaller size */
+        padding: 4px 8px;
+        font-size: 12px;
+        min-width: 50px;
+    }
+
+    /* Topic Add Container Adjustments */
+    .topic-add-container {
+        flex-wrap: nowrap;
+        gap: 8px;
+    }
+
+    .topic-add-container input {
+        flex-grow: 0;
+        width: 65%;
+        padding: 6px 8px;
+        font-size: 12px;
+        min-width: 0;
+    }
+
+    .topic-add-container button {
+        padding: 6px 12px;
+        font-size: 12px;
+        flex-shrink: 0;
     }
 
     .topics h5 {

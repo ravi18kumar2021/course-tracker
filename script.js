@@ -923,6 +923,16 @@ function setupTopicEditableActions(courseId, chapterId, topicId, editableDiv) {
     const doneBtn = editableDiv.querySelector('.done-btn');
     const cancelBtn = editableDiv.querySelector('.cancel-btn');
     const chapterIdNum = parseInt(chapterId);
+    const isSmallScreen = window.matchMedia("(max-width: 439px)").matches;
+
+    // For small screens, ensure input and buttons are in a flex row
+    if (isSmallScreen) {
+        editableDiv.style.display = 'flex';
+        editableDiv.style.flexDirection = 'row';
+        editableDiv.style.alignItems = 'center';
+        editableDiv.style.width = '100%';
+        editableDiv.style.gap = '5px';
+    }
 
     doneBtn.addEventListener('click', (e) => {
         e.stopPropagation();
