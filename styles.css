@@ -595,8 +595,28 @@ h2 {
     margin-top: 5px;
     font-size: 14px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 10px; /* Space between link and buttons */
+}
+
+.topic-attachments li a {
+    color: #4A90E2;
+    text-decoration: none;
+    flex-grow: 1; /* Allow link to take available space */
+    overflow: hidden; /* Handle long filenames */
+    text-overflow: ellipsis; /* Truncate long filenames */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.topic-attachments li a:hover {
+    text-decoration: underline;
+}
+
+.attachment-actions {
+    display: flex;
+    gap: 5px;
+    flex-shrink: 0; /* Prevent buttons from shrinking too much */
 }
 
 .view-file-btn, .remove-file-btn {
@@ -607,7 +627,7 @@ h2 {
     color: white;
     cursor: pointer;
     transition: background 0.3s ease;
-    min-width: 60px;
+    min-width: 60px; /* Default minimum width */
     text-align: center;
 }
 
@@ -615,8 +635,16 @@ h2 {
     background-color: #4A90E2;
 }
 
+.view-file-btn:hover {
+    background-color: #357ABD;
+}
+
 .remove-file-btn {
     background: #E53E3E;
+}
+
+.remove-file-btn:hover {
+    background: #C53030;
 }
 
 .no-chapters, .no-topics {
@@ -748,45 +776,63 @@ h2 {
         align-items: center;
         gap: 10px;
         width: 100%;
-        margin-top: 5px; /* Space between topic name and toggle row */
+        margin-top: 5px;
     }
 
     .topic-editable .toggle-container {
-        width: auto; /* Allow natural width */
-        flex-shrink: 0; /* Prevent shrinking */
+        width: auto;
+        flex-shrink: 0;
     }
 
     .topic-editable .status-label {
         width: auto;
         text-align: left;
         font-size: 12px;
-        flex-grow: 1; /* Allow it to take available space */
+        flex-grow: 1;
     }
 
     /* File Input and Upload Button Side-by-Side with Reduced Size */
     .topic-attachments .file-upload-container {
-        flex-direction: row; /* Side-by-side */
+        flex-direction: row;
         gap: 8px;
-        flex-wrap: nowrap; /* Prevent wrapping */
+        flex-wrap: nowrap;
     }
 
     .topic-attachments input[type="file"] {
         flex-grow: 1;
-        padding: 6px; /* Reduced from 8px */
-        font-size: 12px; /* Reduced from 14px */
-        min-width: 0; /* Allow shrinking */
+        padding: 6px;
+        font-size: 12px;
+        min-width: 0;
     }
 
     .topic-attachments input[type="file"]::-webkit-file-upload-button {
-        padding: 6px 10px; /* Reduced size */
+        padding: 6px 10px;
         font-size: 12px;
     }
 
     .topic-attachments .upload-file-btn {
-        padding: 6px 12px; /* Reduced from 8px 16px */
+        padding: 6px 12px;
+        font-size: 12px;
+        flex-shrink: 0;
+        width: auto;
+    }
+
+    /* Uploaded File List Item Adjustments */
+    .topic-attachments li {
+        flex-wrap: nowrap; /* Prevent wrapping */
+        gap: 8px;
+    }
+
+    .attachment-actions {
+        flex-direction: row; /* Side-by-side */
+        gap: 5px;
+        justify-content: flex-end; /* Align to right */
+    }
+
+    .view-file-btn, .remove-file-btn {
+        padding: 4px 8px; /* Reduced from 6px 12px */
         font-size: 12px; /* Reduced from 14px */
-        flex-shrink: 0; /* Prevent shrinking too much */
-        width: auto; /* Natural width */
+        min-width: 50px; /* Adjustable smaller size */
     }
 
     .topics h5 {
