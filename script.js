@@ -319,6 +319,9 @@ function renderCourses() {
             courseDiv.className = 'course-card';
             courseDiv.dataset.id = course.id;
 
+            // Check if screen width is small (≤ 439px)
+            const isSmallScreen = window.matchMedia("(max-width: 439px)").matches;
+
             courseDiv.innerHTML = `
                 <div class="course-card-content">
                     <div class="course-editable" data-id="${course.id}">
@@ -331,11 +334,22 @@ function renderCourses() {
                     </div>
                 </div>
                 <div class="chapter-progress">
-                    <svg class="progress-circle" width="80" height="80">
-                        <circle class="progress-circle-bg" cx="40" cy="40" r="35" />
-                        <circle class="progress-circle-fg" cx="40" cy="40" r="35" id="courseProgressCircle-${course.id}" />
-                        <text x="40" y="46" text-anchor="middle" fill="#E2E8F0" font-size="16">${courseProgress.toFixed(2)}%</text>
-                    </svg>
+                    ${
+                        isSmallScreen
+                        ? `
+                            <div class="progress-text">${courseProgress.toFixed(2)}%</div>
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" id="courseProgressBar-${course.id}" style="width: ${courseProgress}%"></div>
+                            </div>
+                        `
+                        : `
+                            <svg class="progress-circle" width="80" height="80">
+                                <circle class="progress-circle-bg" cx="40" cy="40" r="35" />
+                                <circle class="progress-circle-fg" cx="40" cy="40" r="35" id="courseProgressCircle-${course.id}" />
+                                <text x="40" y="46" text-anchor="middle" fill="#E2E8F0" font-size="16">${courseProgress.toFixed(2)}%</text>
+                            </svg>
+                        `
+                    }
                 </div>
             `;
 
@@ -345,8 +359,10 @@ function renderCourses() {
                 }
             });
 
-            const courseProgressCircle = courseDiv.querySelector(`#courseProgressCircle-${course.id}`);
-            updateProgressCircle(courseProgressCircle, courseProgress);
+            if (!isSmallScreen) {
+                const courseProgressCircle = courseDiv.querySelector(`#courseProgressCircle-${course.id}`);
+                updateProgressCircle(courseProgressCircle, courseProgress);
+            }
 
             coursesList.appendChild(courseDiv);
         });
@@ -375,6 +391,8 @@ function renderSyllabus(courseId) {
         noChaptersMsg.textContent = 'No chapters available';
         chaptersList.appendChild(noChaptersMsg);
     } else {
+        const isSmallScreen = window.matchMedia("(max-width: 439px)").matches;
+
         course.chapters.forEach((chapter, index) => {
             const chapterProgress = calculateChapterProgress(chapter);
             const chapterDiv = document.createElement('div');
@@ -395,11 +413,22 @@ function renderSyllabus(courseId) {
                         </div>
                     </div>
                     <div class="chapter-progress">
-                        <svg class="progress-circle" width="80" height="80">
-                            <circle class="progress-circle-bg" cx="40" cy="40" r="35" />
-                            <circle class="progress-circle-fg" cx="40" cy="40" r="35" id="chapterProgressCircle-${chapter.id}" />
-                            <text x="40" y="46" text-anchor="middle" fill="#E2E8F0" font-size="16">${chapterProgress.toFixed(2)}%</text>
-                        </svg>
+                        ${
+                            isSmallScreen
+                            ? `
+                                <div class="progress-text">${chapterProgress.toFixed(2)}%</div>
+                                <div class="progress-bar">
+                                    <div class="progress-bar-fill" id="chapterProgressBar-${chapter.id}" style="width: ${chapterProgress}%"></div>
+                                </div>
+                            `
+                            : `
+                                <svg class="progress-circle" width="80" height="80">
+                                    <circle class="progress-circle-bg" cx="40" cy="40" r="35" />
+                                    <circle class="progress-circle-fg" cx="40" cy="40" r="35" id="chapterProgressCircle-${chapter.id}" />
+                                    <text x="40" y="46" text-anchor="middle" fill="#E2E8F0" font-size="16">${chapterProgress.toFixed(2)}%</text>
+                                </svg>
+                            `
+                        }
                     </div>
                 </div>
                 <div class="topics"></div>
@@ -408,10 +437,13 @@ function renderSyllabus(courseId) {
                     <button class="${isMaxTopicsReached ? 'add-topic-btn max-reached-btn' : 'add-topic-btn'}" data-course-id="${course.id}" data-chapter-id="${chapter.id}" ${isMaxTopicsReached ? 'disabled' : ''}>Add Topic</button>
                 </div>
             `;
+
             const topicsDiv = chapterDiv.querySelector('.topics');
 
-            const chapterProgressCircle = chapterDiv.querySelector(`#chapterProgressCircle-${chapter.id}`);
-            updateProgressCircle(chapterProgressCircle, chapterProgress);
+            if (!isSmallScreen) {
+                const chapterProgressCircle = chapterDiv.querySelector(`#chapterProgressCircle-${chapter.id}`);
+                updateProgressCircle(chapterProgressCircle, chapterProgress);
+            }
 
             if (chapter.topics.length === 0) {
                 const noTopicsMsg = document.createElement('div');
@@ -444,13 +476,29 @@ function renderSyllabus(courseId) {
                     topicDiv.innerHTML = `
                         <div class="topic-editable" data-course-id="${course.id}" data-chapter-id="${chapter.id}" data-id="${topic.id}">
                             <h5>Topic ${index + 1} : ${topic.name}</h5>
-                            <div class="toggle-container">
-                                <label class="toggle-switch">
-                                    <input type="checkbox" class="topic-complete-toggle" data-course-id="${course.id}" data-chapter-id="${chapter.id}" data-topic-id="${topic.id}" ${topic.completed ? 'checked' : ''}>
-                                    <span class="toggle-slider"></span>
-                                </label>
-                            </div>
-                            <span class="status-label">${topic.completed ? 'Completed' : 'Not Completed'}</span>
+                            ${
+                                isSmallScreen
+                                ? `
+                                    <div class="toggle-row">
+                                        <div class="toggle-container">
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" class="topic-complete-toggle" data-course-id="${course.id}" data-chapter-id="${chapter.id}" data-topic-id="${topic.id}" ${topic.completed ? 'checked' : ''}>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <span class="status-label">${topic.completed ? 'Completed' : 'Not Completed'}</span>
+                                    </div>
+                                `
+                                : `
+                                    <div class="toggle-container">
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" class="topic-complete-toggle" data-course-id="${course.id}" data-chapter-id="${chapter.id}" data-topic-id="${topic.id}" ${topic.completed ? 'checked' : ''}>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <span class="status-label">${topic.completed ? 'Completed' : 'Not Completed'}</span>
+                                `
+                            }
                         </div>
                         <div class="topic-attachments">
                             <div class="file-upload-container">
@@ -471,16 +519,16 @@ function renderSyllabus(courseId) {
 
             chaptersList.appendChild(chapterDiv);
         });
-    }
 
-    setupExpandCollapse();
-    setupActions();
-    setupChapterActions();
-    setupTopicActions();
-    setupFileViewActions();
-    setupRemoveAttachmentActions();
-    setupTopicCompletionActions();
-    syllabusSection.style.display = 'block';
+        setupExpandCollapse();
+        setupActions();
+        setupChapterActions();
+        setupTopicActions();
+        setupFileViewActions();
+        setupRemoveAttachmentActions();
+        setupTopicCompletionActions();
+        syllabusSection.style.display = 'block';
+    }
 }
 
 // Open files in new tab
